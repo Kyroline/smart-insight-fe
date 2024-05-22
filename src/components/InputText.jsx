@@ -2,7 +2,7 @@ import React from 'react'
 
 export default ({ label, className, type, value, onChange, placeholder }) => (
     <div className={className}>
-        {label ? <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{label}</label> : ''}
+        {label ? <label className="block mb-2 text-sm text-gray-900 dark:text-white">{label}</label> : ''}
         <input
             value={value}
             onChange={onChange}
