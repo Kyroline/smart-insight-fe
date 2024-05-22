@@ -1,11 +1,18 @@
 import axios from 'axios'
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3000/api/',
-    headers: {
-        Authorization: `Bearer ${sessionStorage.getItem('api_key')}`
-    }
+    baseURL: 'http://localhost:3000/api/'
 })
+
+axiosInstance.interceptors.request.use(function (config) {
+    const token = sessionStorage.getItem('api_key');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+}, function (error) {
+    return Promise.reject(error);
+});
 
 axiosInstance.interceptors.response.use(function (response) {
 
