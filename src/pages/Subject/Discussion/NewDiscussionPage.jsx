@@ -4,6 +4,7 @@ import TextArea from '../../../components/TextArea'
 import Button from '../../../components/Button'
 import axiosInstance from '../../../lib/axios'
 import { useNavigate, useParams } from 'react-router-dom'
+import { BsChevronLeft } from 'react-icons/bs'
 
 const NewDiscussionPage = () => {
     const { id } = useParams()
@@ -33,6 +34,12 @@ const NewDiscussionPage = () => {
     return (
         <>
             <div className="p-2 bg-white">
+                <div className="flex flex-row items-center py-2">
+                    <div className="w-8 h-8 mr-2 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => navigate(-1)}>
+                        <BsChevronLeft />
+                    </div>
+                    <span>New Discussion Topic</span>
+                </div>
                 <InputText
                     className='mb-2'
                     label='Title'

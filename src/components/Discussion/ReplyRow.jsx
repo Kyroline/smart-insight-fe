@@ -9,7 +9,7 @@ import axiosInstance from '../../lib/axios'
 import moment from 'moment'
 
 const ReplyRow = ({ discussionId, data, level, mutate }) => {
-    const { data: replies, error: repliesError, isLoading: repliesLoading, mutate: childMutate } = useSWR(`http://localhost:3000/api/v1/replies?discussion=${discussionId}&parent=${data._id}`, url => axiosInstance.get(url).then(res => res.data))
+    const { data: replies, error: repliesError, isLoading: repliesLoading, mutate: childMutate } = useSWR(`v1/replies?discussion=${discussionId}&parent=${data._id}`, url => axiosInstance.get(url).then(res => res.data))
 
     const [showInput, setShowInput] = useState(false)
     const [comment, setComment] = useState('')
@@ -63,15 +63,15 @@ const ReplyRow = ({ discussionId, data, level, mutate }) => {
     return (
         <div className='flex flex-col bg-white pl-[32px] border-gray-400'>
             <div className='flex flex-row w-full h-12 items-center'>
-                <div className='w-8 h-8 mr-4'>
+                <div className='h-6 w-6 md:w-8 md:h-8 mr-2 md:mr-4 shrink-0'>
                     <img src="/media/image/user.png" alt="" />
                 </div>
-                <h1>{data.user.firstname} {data.user.lastname}</h1>
+                <h1 className='text-xs md:text-base shrink'>{data.user.firstname} {data.user.lastname}</h1>
                 <span className='ml-2'>•</span>
-                <span className='ml-2 text-sm'>{data.created_at ? moment(data.created_at).startOf('day').fromNow() : ''}</span>
+                <span className='ml-2 text-xs md:text-sm min-w-20'>{data.created_at ? moment(data.created_at).startOf('day').fromNow() : ''}</span>
             </div>
             <div className="flex flex-col">
-                <p className='text-medium text-sm mb-2'>{data.content}</p>
+                <p className='text-medium text-xs md:text-sm mb-2'>{data.content}</p>
             </div>
             <div className="flex flex-row mb-2">
                 <div className="min-h-8 min-w-16 flex flex-row justify-between items-center mr-4 bg-gray-200 rounded-full">
@@ -120,7 +120,7 @@ const ReplyRow = ({ discussionId, data, level, mutate }) => {
                     </div>
                 </div>
             ) : null}
-            {replies && replies.data.length > 0 ? replies.data.map((reply, index) => (
+            {level < 2 && replies && replies.data.length > 0 ? replies.data.map((reply, index) => (
                 <ReplyRow discussionId={discussionId} data={reply} level={level + 1} mutate={childMutate} />
             )) : null}
         </div>

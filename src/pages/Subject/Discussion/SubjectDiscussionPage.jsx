@@ -20,10 +20,10 @@ const SubjectDiscussionPage = () => {
             <div className="flex justify-center">
                 <div className="flex flex-col justify-center">
                     <div className='flex flex-row justify-between p-2 bg-white mb-4 items-center'>
-                        <InputText />
-                        <div onClick={() => navigate(`/home/class/${id}/discussions/new`)} className="flex flex-row p-2 rounded-full hover:bg-gray-200 cursor-pointer text-sm">
-                            <BsPlusLg className='mr-2' size={20} />
-                            <span>New Discussion</span>
+                        <InputText className='shrink' />
+                        <div onClick={() => navigate(`/home/class/${id}/discussions/new`)} className="shrink-0 flex flex-row p-2 rounded-full hover:bg-gray-200 cursor-pointer text-sm">
+                            <BsPlusLg className='mr-2 h-4 w-4 md:h-5 md:w-5' />
+                            <span className='text-xs md:text-sm'>New Discussion</span>
                         </div>
                     </div>
                     {discussions ? discussions.data.map((discussion, index) => (

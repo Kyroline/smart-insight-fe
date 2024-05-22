@@ -38,22 +38,22 @@ const DiscussionRowWithLink = ({ data, showLink, mutate }) => {
     }
 
     return (
-        <div className='flex flex-col bg-white py-4 px-4 md:px-8 mb-4 rounded-3xl shadow-md'>
+        <div className='flex flex-col bg-white py-2 px-4 md:px-8 mb-4 rounded-3xl shadow-md'>
             <Link to={`/home/class/${data.subject._id}/discussions/${data._id}`}>
                 <div className='flex flex-row w-full h-12 items-center'>
                     <div className='w-8 h-8 mr-4'>
                         <img src="/media/image/user.png" alt="" />
                     </div>
-                    <h1>{data.user.firstname} {data.user.lastname}</h1>
-                    <span className='ml-2'>•</span>
-                    <span className='ml-2 text-sm'>{data.created_at ? moment(data.created_at).startOf('day').fromNow() : ''}</span>
-                    <div className='min-w-4 min-h-4 ml-4 p-2 rounded-full bg-orange-600 text-white'>
+                    <h1 className='text-xs md:text-base'>{data.user.firstname} {data.user.lastname}</h1>
+                    <span className='ml-1 md:ml-2'>•</span>
+                    <span className='ml-1 md:ml-2 text-xs md:text-sm'>{data.created_at ? moment(data.created_at).startOf('day').fromNow() : ''}</span>
+                    {/* <div className='min-w-4 min-h-4 ml-4 p-2 rounded-full bg-orange-600 text-white'>
                         <h2 className='text-xs'>{data.subject.name}</h2>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="flex flex-col">
-                    <h1 className='font-bold text-xl mb-2'>{data.title}</h1>
-                    <p className='text-medium text-sm mb-2'>{data.content}</p>
+                    <h1 className='font-bold text-lg md:text-xl mb-2'>{data.title}</h1>
+                    <p className='text-medium text-xs md:text-sm mb-2 text-justify'>{data.content.slice(0, 300) + '...'}</p>
                 </div>
             </Link>
             <div className="flex flex-row">

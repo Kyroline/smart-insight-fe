@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams, Link, Outlet } from 'react-router-dom'
 import axiosInstance from '../../lib/axios'
 import useSWR from 'swr'
 
 const SubjectDetailPage = () => {
     const { id } = useParams()
+    const [selected, setSelected] = useState(null)
     const { data: subject, error, isLoading } = useSWR(`v1/subjects/${id}`, url => axiosInstance(url).then((res) => res.data))
 
     if (!isLoading && !error)
@@ -14,19 +15,19 @@ const SubjectDetailPage = () => {
                     <h1 className='font-bold text-white text-3xl m-1 p-2 bg-gray-800 bg-opacity-50 w-fit'>{subject.data.name}</h1>
                     <h1 className='font-bold text-white text-xl m-1 p-2 bg-gray-800 bg-opacity-50 w-fit'>{subject.data.teacher.firstname} {subject.data.teacher.lastname}</h1>
                 </div>
-                <div className="flex flex-row justify-center my-4 border-b-2 bg-white shadow-lg">
+                <div className="flex flex-row justify-center my-4 bg-white shadow-lg">
                     <Link to={`/home/class/${id}/materials`}>
-                        <div className="p-4 mr-4 border-transparent border-b-4 hover:border-orange-600 cursor-pointer">
+                        <div onClick={() => setSelected(1)} className={`text-xs md:text-base p-4 md:mr-4 border-transparent border-b-4 hover:border-orange-600 cursor-pointer ${selected == 1 ? 'border-orange-500' : ''}`}>
                             Materials
                         </div>
                     </Link>
                     <Link to={`/home/class/${id}/assignments`}>
-                        <div className="p-4 mr-4 border-transparent border-b-4 hover:border-orange-600 cursor-pointer">
+                        <div onClick={() => setSelected(2)} className={`text-xs md:text-base p-4 md:mr-4 border-transparent border-b-4 hover:border-orange-600 cursor-pointer ${selected == 2 ? 'border-orange-500' : ''}`}>
                             Assignments
                         </div>
                     </Link>
                     <Link to={`/home/class/${id}/discussions`}>
-                        <div className="p-4 border-transparent border-b-4 hover:border-orange-600 cursor-pointer">
+                        <div onClick={() => setSelected(3)} className={`text-xs md:text-base p-4 border-transparent border-b-4 hover:border-orange-600 cursor-pointer ${selected == 3 ? 'border-orange-500' : ''}`}>
                             Discussions
                         </div>
                     </Link>

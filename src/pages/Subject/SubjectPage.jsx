@@ -4,7 +4,7 @@ import useSWR from 'swr'
 import SubjectGrid from '../../components/Subject/SubjectGrid'
 
 const SubjectPage = () => {
-    const { data: subject, error, isLoading } = useSWR('http://localhost:3000/api/v1/subjects', url => axiosInstance.get(url).then(res => res.data))
+    const { data: subject, error, isLoading } = useSWR('v1/subjects', url => axiosInstance.get(url).then(res => res.data))
     return (
         <>
             <div className="flex flex-wrap">
