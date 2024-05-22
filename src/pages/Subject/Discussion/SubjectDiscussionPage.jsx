@@ -13,7 +13,7 @@ const SubjectDiscussionPage = () => {
 
     const navigate = useNavigate()
 
-    const { data: discussions, error: discussionError, isLoading: discussionLoading } = useSWR(`v1/discussions?subject=${id}`, url => axiosInstance.get(url).then(res => res.data))
+    const { data: discussions, error: discussionError, isLoading: discussionLoading, mutate } = useSWR(`v1/discussions?subject=${id}`, url => axiosInstance.get(url).then(res => res.data))
 
     return (
         <>
@@ -27,7 +27,7 @@ const SubjectDiscussionPage = () => {
                         </div>
                     </div>
                     {discussions ? discussions.data.map((discussion, index) => (
-                        <DiscussionRowWithLink data={discussion} showLink={true} />
+                        <DiscussionRowWithLink data={discussion} showLink={true} mutate={mutate} />
                     )) : null}
                 </div>
             </div>

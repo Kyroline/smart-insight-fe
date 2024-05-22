@@ -2,15 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
+import useSessionStorage from '../lib/useSessionStorage'
 
 export default () => {
     const [sidebarActive, setSidebarActive] = useState(true)
     const navigate = useNavigate()
+    const apiKey = useSessionStorage('api_key')
 
     useEffect(() => {
-        if (!sessionStorage.getItem('api_key'))
+        if (!apiKey) {
             navigate('/login')
-    }, [])
+        }
+    }, [apiKey, navigate])
 
     return (
         <div className="flex flex-col w-screen h-screen bg-[#ebebeb] font-[Poppins]">

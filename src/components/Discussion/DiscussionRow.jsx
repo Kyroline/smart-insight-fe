@@ -1,35 +1,74 @@
 import React, { useEffect, useState } from 'react'
 import { BiComment } from "react-icons/bi"
-import { BsHeart, BsHeartbreak, BsShare } from "react-icons/bs";
-import { Link } from 'react-router-dom';
+import { BsHeart, BsHeartbreak, BsShare, BsHeartFill, BsHeartbreakFill, BsArrowLeft, BsChevronLeft } from "react-icons/bs";
 import TextArea from '../TextArea';
 import Button from '../Button';
 import axiosInstance from '../../lib/axios';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
-const DiscussionRow = ({ data, showLink }) => {
+const DiscussionRow = ({ data, showLink, mutate, replyMutate }) => {
+    const navigate = useNavigate()
     const [showInput, setShowInput] = useState(false)
     const [comment, setComment] = useState('')
+    const [processing, setProcessing] = useState(false)
 
     useEffect(() => {
         setComment('')
     }, [showInput])
 
+    const handleScore = async (val) => {
+        if (processing)
+            return
+        try {
+            setProcessing(true)
+            let response = await axiosInstance.post(`v1/discussions/${data._id}/score`, {
+                score: val
+            })
+            mutate()
+        } catch (error) {
+
+        }
+        setProcessing(false)
+    }
+
+    const deleteScore = async () => {
+        if (processing)
+            return
+        try {
+            setProcessing(true)
+            let response = await axiosInstance.delete(`v1/discussions/${data._id}/score`)
+            mutate()
+        } catch (error) {
+
+        }
+        setProcessing(false)
+    }
+
     const submitReply = async () => {
+        if (processing)
+            return
+        setProcessing(true)
         try {
             let response = await axiosInstance.post('v1/replies', {
                 discussion_id: data._id,
                 content: comment
             })
+            replyMutate()
+            mutate()
         } catch (error) {
 
         }
         setShowInput(false)
+        setProcessing(false)
     }
 
     return (
         <div className='flex flex-col bg-white py-4 px-4 md:px-8 mb-4 rounded-3xl shadow-md'>
             <div className='flex flex-row w-full h-12 items-center'>
+                <div className="w-8 h-8 mr-2 flex justify-center items-center hover:bg-gray-200 rounded-full" onClick={() => navigate(-1)}>
+                    <BsChevronLeft />
+                </div>
                 <div className='w-8 h-8 mr-4'>
                     <img src="/media/image/user.png" alt="" />
                 </div>
@@ -46,13 +85,25 @@ const DiscussionRow = ({ data, showLink }) => {
             </div>
             <div className="flex flex-row">
                 <div className="min-h-8 min-w-16 flex flex-row justify-between items-center mr-2 bg-gray-200 rounded-full">
-                    <span className='cursor-pointer h-8 w-8 p-2 mr-1 flex items-center justify-center hover:bg-gray-300 rounded-full'>
-                        <BsHeart size={'16'} />
-                    </span>
-                    <span className='mr-1 cursor-default text-sm'>{data.like}</span>
-                    <span className='cursor-pointer h-8 w-8 p-2 flex items-center justify-center hover:bg-gray-300 rounded-full'>
-                        <BsHeartbreak size={'16'} />
-                    </span>
+                    {data.userScore == 1 ? (
+                        <span onClick={deleteScore} className='cursor-pointer h-8 w-8 p-2 mr-1 flex items-center justify-center hover:bg-gray-300 rounded-full'>
+                            <BsHeartFill size={'16'} color='#2563eb' />
+                        </span>
+                    ) : (
+                        <span onClick={() => handleScore(1)} className='cursor-pointer h-8 w-8 p-2 mr-1 flex items-center justify-center hover:bg-gray-300 rounded-full'>
+                            <BsHeart size={'16'} color='#2563eb' />
+                        </span>
+                    )}
+                    <span className='mr-1 cursor-default text-sm'>{data.score}</span>
+                    {data.userScore == -1 ? (
+                        <span onClick={deleteScore} className='cursor-pointer h-8 w-8 p-2 flex items-center justify-center hover:bg-gray-300 rounded-full'>
+                            <BsHeartbreakFill size={'16'} color='#da2829' />
+                        </span>
+                    ) : (
+                        <span onClick={() => handleScore(-1)} className='cursor-pointer h-8 w-8 p-2 flex items-center justify-center hover:bg-gray-300 rounded-full'>
+                            <BsHeartbreak size={'16'} color='#da2829' />
+                        </span>
+                    )}
                 </div>
                 <div onClick={() => setShowInput(prev => !prev)} className="cursor-pointer h-8 w-16 flex flex-row justify-center items-center mr-2 bg-gray-200 hover:bg-gray-300 rounded-full">
                     <BiComment className='mr-2' size={'16'} />
