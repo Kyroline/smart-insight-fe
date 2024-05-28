@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default ({ label, className, type, value, onChange, placeholder }) => (
+export default ({ label, className, type, value, onChange, placeholder, readOnly }) => (
     <div className={className}>
-        {label ? <label className="block mb-2 text-sm text-gray-900 dark:text-white">{label}</label> : ''}
+        {label ? <label className="block mb-2 text-sm md:text-base text-gray-900 dark:text-white">{label}</label> : ''}
         <input
+            readOnly={readOnly}
             value={value}
             onChange={onChange}
             type={type ?? 'text'}

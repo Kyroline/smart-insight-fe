@@ -1,31 +1,34 @@
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
 import InputText from '../components/InputText'
 import Button from '../components/Button'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 import { useAlert } from 'react-alert'
 
-const LoginPage = () => {
-    const [email, setEmail] = useState(null)
+const RegisterPage = () => {
     const { setUser } = useContext(UserContext)
+    const [firstname, setFirstname] = useState('')
+    const [lastname, setLastname] = useState('')
+    const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
     const navigate = useNavigate()
     const alert = useAlert()
 
-    const submitLogin = async () => {
+    const submitRegister = async () => {
         try {
-            let response = await axios.post('http://localhost:3000/api/v1/auth/login', {
+            let response = await axios.post('http://localhost:3000/api/v1/auth/register', {
+                firstname: firstname,
+                lastname: lastname,
                 email: email,
                 password: password
             })
-            alert.success('Login succeess')
+            alert.success('Register succeess')
             sessionStorage.setItem('api_key', response.data.token)
             setUser(response.data.user)
             navigate('/home')
         } catch (error) {
-            alert.error('Email or password is incorrect.')
+            alert.error('Registration Error!')
         }
     }
 
@@ -35,23 +38,35 @@ const LoginPage = () => {
                 <div className="w-full bg-white rounded-lg shadow-2xl dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                            Log in to your account
+                            Create your account
                         </h1>
+                        <InputText
+                            value={firstname}
+                            type='text'
+                            onChange={e => setFirstname(e.target.value)}
+                            label='Firstname'
+                            placeholder='John' />
+                        <InputText
+                            value={lastname}
+                            type='text'
+                            onChange={e => setLastname(e.target.value)}
+                            label='Lastname'
+                            placeholder='Doe' />
                         <InputText
                             value={email}
                             type='email'
                             onChange={e => setEmail(e.target.value)}
                             label='Email'
-                            placeholder='emailkamu@mail.com' />
+                            placeholder='your-email@mail.com' />
                         <InputText
                             value={password}
                             type='password'
                             onChange={e => setPassword(e.target.value)}
                             label='Password'
                             placeholder='••••••••' />
-                        <Button title='Sign in' onClick={submitLogin} />
+                        <Button title='Register' onClick={submitRegister} />
                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Belum punya akun? <Link to='/register'><span className="font-medium text-primary-600 hover:underline dark:text-primary-500">Register</span></Link>
+                            Sudah punya akun? <Link to='/login'><span className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login</span></Link>
                         </p>
                     </div>
                 </div>
@@ -60,4 +75,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
+export default RegisterPage
