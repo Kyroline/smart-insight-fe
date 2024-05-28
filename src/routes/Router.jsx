@@ -1,5 +1,5 @@
 import React from 'react'
-import { createBrowserRouter } from 'react-router-dom'
+import { Navigate, createBrowserRouter } from 'react-router-dom'
 import BaseLayout from '../layouts/BaseLayout'
 
 import LoginPage from '../pages/LoginPage'
@@ -103,7 +103,7 @@ const Router = createBrowserRouter([
                         element: <DiscussionDetailPage />
                     },
                     {
-                        path:'peoples',
+                        path: 'peoples',
                         element: <SubjectPeoplePage />
                     }
                 ]
@@ -121,6 +121,10 @@ const Router = createBrowserRouter([
     {
         path: '/register',
         element: <RegisterPage />
+    },
+    {
+        path: '*',
+        element: <Navigate replace to='/home' />
     }
 ])
 

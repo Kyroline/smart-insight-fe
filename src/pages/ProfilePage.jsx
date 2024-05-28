@@ -28,7 +28,7 @@ const ProfilePage = () => {
 
         setProcessing(true)
         try {
-            let response = await axiosInstance.put('v1/auth/users', { firstname: firstname, lastname: lastname, email: email, password: password })
+            let response = await axiosInstance.put('v1/auth/users', { firstname: firstname, lastname: lastname, email: email, password: password, new_password: (newPassword == '' ? null : newPassword) })
             alert.success('Profile Saved')
             window.open('/home/my-profile')
         } catch (error) {
