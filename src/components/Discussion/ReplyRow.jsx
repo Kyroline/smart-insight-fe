@@ -68,7 +68,7 @@ const ReplyRow = ({ discussionId, data, level, mutate }) => {
                 </div>
                 <h1 className='text-xs md:text-base shrink'>{data.user.firstname} {data.user.lastname}</h1>
                 <span className='ml-2'>•</span>
-                <span className='ml-2 text-xs md:text-sm min-w-20'>{data.created_at ? moment(data.created_at).startOf('day').fromNow() : ''}</span>
+                <span className='ml-2 text-xs md:text-sm min-w-20'>{data.created_at ? moment.utc(data.created_at).startOf('minute').fromNow() : ''}</span>
             </div>
             <div className="flex flex-col">
                 <p className='text-medium text-xs md:text-sm mb-2'>{data.content}</p>

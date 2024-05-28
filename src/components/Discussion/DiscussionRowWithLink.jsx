@@ -46,7 +46,7 @@ const DiscussionRowWithLink = ({ data, showLink, mutate }) => {
                     </div>
                     <h1 className='text-xs md:text-base'>{data.user.firstname} {data.user.lastname}</h1>
                     <span className='ml-1 md:ml-2'>•</span>
-                    <span className='ml-1 md:ml-2 text-xs md:text-sm'>{data.created_at ? moment(data.created_at).startOf('day').fromNow() : ''}</span>
+                    <span className='ml-1 md:ml-2 text-xs md:text-sm'>{data.created_at ? moment.utc(data.created_at).startOf('minute').fromNow() : ''}</span>
                     {/* <div className='min-w-4 min-h-4 ml-4 p-2 rounded-full bg-orange-600 text-white'>
                         <h2 className='text-xs'>{data.subject.name}</h2>
                     </div> */}
@@ -78,13 +78,9 @@ const DiscussionRowWithLink = ({ data, showLink, mutate }) => {
                         </span>
                     )}
                 </div>
-                <div onClick={() => navigate(`/home/class/${data.subject._id}/discussions/${data._id}`)} className="cursor-pointer h-8 w-16 flex flex-row justify-center items-center mr-2 bg-gray-200 hover:bg-gray-300 rounded-full">
+                <div onClick={() => navigate(`/home/class/${data.subject._id}/discussions/${data._id}`)} className="cursor-pointer h-8 min-w-16 px-2 flex flex-row justify-center items-center mr-2 bg-gray-200 hover:bg-gray-300 rounded-full">
                     <BiComment className='mr-2' size={'16'} />
-                    <span className=' text-sm'>{data.replyCount}</span>
-                </div>
-                <div className="cursor-pointer h-8 min-w-16 px-2 flex flex-row justify-center items-center bg-gray-200 hover:bg-gray-300 rounded-full">
-                    <BsShare className='mr-2' size={'16'} />
-                    <span className=' text-sm'>Share</span>
+                    <span className=' text-sm'>{data.replyCount} Replies</span>
                 </div>
             </div>
         </div>
