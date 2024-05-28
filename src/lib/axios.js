@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const axiosInstance = axios.create({
-    baseURL: 'http://192.168.0.116:3000/api/'
+    baseURL: 'http://localhost:3000/api/'
 })
 
 axiosInstance.interceptors.request.use(function (config) {
@@ -18,8 +18,10 @@ axiosInstance.interceptors.response.use(function (response) {
 
     return response;
 }, function (error) {
-    if (error.response.status == 401)
+    if (error.response.status == 401) {
         sessionStorage.removeItem('api_key')
+        window.location.reload()
+    }
     return Promise.reject(error);
 });
 
