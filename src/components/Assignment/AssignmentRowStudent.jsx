@@ -1,10 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
-import { BsBook } from 'react-icons/bs'
 import { MdAssignment } from 'react-icons/md'
 
-const AssignmentRow = ({ data }) => {
+const AssignmentRowStudent = ({ data }) => {
     return (
         <div className="mb-2">
             <Link to={`/home/class/${data.subject._id}/assignments/${data._id}`}>
@@ -14,7 +13,11 @@ const AssignmentRow = ({ data }) => {
                     </div>
                     <div className="flex flex-col mr-2">
                         <h1 className='font-bold text-xs md:text-sm'>{data.name}</h1>
-                        <span className='text-xs md:text-sm'>Due {moment.utc(data.deadline).startOf('minute').fromNow()}</span>
+                        {data.submission ?
+                            <span className='text-xs md:text-sm text-green-600 font-bold'>Turned In{data.submission.grade ? `, Grade: ${data.submission.grade} / ${data.max_score ?? 100}` : ', Not Graded'}</span>
+                            :
+                            <span className='text-xs md:text-sm'>{`Due ${moment.utc(data.deadline).startOf('minute').fromNow()}`}</span>}
+
                     </div>
                 </div>
             </Link>
@@ -22,4 +25,4 @@ const AssignmentRow = ({ data }) => {
     )
 }
 
-export default AssignmentRow
+export default AssignmentRowStudent
