@@ -1,8 +1,7 @@
 import React from 'react'
-import { FaCalendarAlt, FaChalkboardTeacher, FaHome, FaUser } from "react-icons/fa";
-// import { FaChalkboardUser } from 'react-icons/fa6';
-import { HiAcademicCap } from 'react-icons/hi2';
-import { Link } from 'react-router-dom';
+import { FaCalendarAlt, FaChalkboardTeacher, FaHome, FaUser } from "react-icons/fa"
+import { HiAcademicCap } from 'react-icons/hi2'
+import { Link } from 'react-router-dom'
 
 const Sidebar = ({ active }) => {
     return (
@@ -13,7 +12,7 @@ const Sidebar = ({ active }) => {
                     <span className='text-sm'>Home</span>
                 </div>
             </Link>
-            <Link>
+            <Link to='/home/my-agenda'>
                 <div className='h-8 flex flex-row items-center m-1 p-6 hover:bg-gray-200 cursor-pointer'>
                     <FaCalendarAlt className='mr-8' color='#5f6368' size={'24'} />
                     <span className='text-sm'>My Agenda</span>
