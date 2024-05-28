@@ -15,6 +15,7 @@ const SubjectDetailPage = () => {
                 <div className='w-full min-h-60 flex bg-orange-600 flex-col justify-end p-2 bg-[url("https://news.yale.edu/sites/default/files/styles/featured_media/public/125235081-ynews.jpg?itok=a7hyfNyU&c=07307e7d6a991172b9f808eb83b18804")]'>
                     <h1 className='font-bold text-white text-3xl m-1 p-2 bg-gray-800 bg-opacity-50 w-fit'>{subject.data.name}</h1>
                     <h1 className='font-bold text-white text-xl m-1 p-2 bg-gray-800 bg-opacity-50 w-fit'>{subject.data.teacher.firstname} {subject.data.teacher.lastname}</h1>
+                    <h1 className='font-bold text-white text-base m-1 p-2 bg-gray-800 bg-opacity-50 w-fit'>Code {subject.data._id}</h1>
                 </div>
                 <div className="grid grid-cols-3 grid-rows-2 md:grid-cols-5 md:grid-rows-1 my-4 justify-center bg-white shadow-lg">
                     <Link to={`/home/class/${id}/attendances`}>
