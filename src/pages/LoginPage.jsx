@@ -16,7 +16,7 @@ const LoginPage = () => {
 
     const submitLogin = async () => {
         try {
-            let response = await axios.post('http://localhost:3000/api/v1/auth/login', {
+            let response = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}v1/auth/login`, {
                 email: email,
                 password: password
             })

@@ -17,7 +17,7 @@ const RegisterPage = () => {
 
     const submitRegister = async () => {
         try {
-            let response = await axios.post('http://localhost:3000/api/v1/auth/register', {
+            let response = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}v1/auth/register`, {
                 firstname: firstname,
                 lastname: lastname,
                 email: email,
