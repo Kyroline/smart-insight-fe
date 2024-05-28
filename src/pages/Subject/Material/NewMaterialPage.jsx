@@ -23,7 +23,8 @@ const NewMaterialPage = () => {
             let response = await axiosInstance.post('v1/materials', {
                 subject_id: id,
                 name: title,
-                description: content
+                description: content,
+                attachments: attachments
             })
             navigate(`/home/class/${id}/discussions`)
         } catch (error) {
@@ -44,18 +45,7 @@ const NewMaterialPage = () => {
 
     }
 
-    const [attachments, setAttachments] = useState([
-        {
-            name: 'Lala',
-            type: 'file',
-            value: 'mepmep.pdf'
-        },
-        {
-            name: 'Lala2',
-            type: 'link',
-            value: 'http://google.com'
-        }
-    ])
+    const [attachments, setAttachments] = useState([])
 
     return (
         <>

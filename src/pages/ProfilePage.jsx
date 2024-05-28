@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import InputText from '../components/InputText'
 import Button from '../components/Button'
 import axiosInstance from '../lib/axios'
-import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 import { useAlert } from 'react-alert'
 
@@ -12,6 +11,7 @@ const ProfilePage = () => {
     const [lastname, setLastname] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState(null)
+    const [newPassword, setNewPassword] = useState(null)
     const alert = useAlert()
 
     const [processing, setProcessing] = useState(false)
@@ -40,7 +40,7 @@ const ProfilePage = () => {
 
     return (
         <div className="flex flex-col md:w-full p-2 md:p-4 rounded-md shadow-md bg-white">
-            <h1 className='font-bold text:base md:text-xl'>My Profile</h1>
+            <h1 className='font-bold text:base md:text-xl mb-4'>My Profile</h1>
             <InputText
                 className='mb-2'
                 value={firstname}
@@ -64,10 +64,18 @@ const ProfilePage = () => {
                 placeholder='your-email@mail.com' />
             <InputText
                 className='mb-2'
+                value={newPassword}
+                type='password'
+                onChange={e => setNewPassword(e.target.value)}
+                label='Enter Your New Password (Optional)'
+                placeholder='••••••••' />
+
+            <InputText
+                className='mt-4 mb-2'
                 value={password}
                 type='password'
                 onChange={e => setPassword(e.target.value)}
-                label='Password'
+                label='Enter Your Old Password'
                 placeholder='••••••••' />
 
             <Button onClick={onClick} title='Save' />

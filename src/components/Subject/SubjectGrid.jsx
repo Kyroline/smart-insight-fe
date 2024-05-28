@@ -36,9 +36,9 @@ const SubjectGrid = ({ data }) => {
                 </Link>
                 <h1 className='font-regular text-center'>{data.teacher.firstname} {data.teacher.lastname}</h1>
                 <div className='flex flex-row mt-2'>
-                    <div className="w-12 h-12 rounded-full bg-blue-600 m-2 flex justify-center items-center"><FaMessage color='white' size='12' /><span className='text-white text-xs ml-1'>99+</span></div>
-                    <div className="w-12 h-12 rounded-full bg-green-600 m-2 flex justify-center items-center"><FaClipboardList color='white' size='12' /><span className='text-white text-xs ml-1'>99+</span></div>
-                    <div className="w-12 h-12 rounded-full bg-orange-600 m-2 flex justify-center items-center"><FaUser color='white' size='12' /><span className='text-white text-xs ml-1'>99+</span></div>
+                    <div className="w-12 h-12 rounded-full bg-blue-600 m-2 flex justify-center items-center"><FaMessage color='white' size='12' /><span className='text-white text-xs ml-1'>{data.material_count ?? '?'}</span></div>
+                    <div className="w-12 h-12 rounded-full bg-green-600 m-2 flex justify-center items-center"><FaClipboardList color='white' size='12' /><span className='text-white text-xs ml-1'>{data.assignment_count ?? '?'}</span></div>
+                    <div className="w-12 h-12 rounded-full bg-orange-600 m-2 flex justify-center items-center"><FaUser color='white' size='12' /><span className='text-white text-xs ml-1'>{data.student_count ?? '?'}</span></div>
                 </div>
             </div>
         </div >

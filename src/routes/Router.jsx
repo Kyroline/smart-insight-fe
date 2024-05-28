@@ -25,6 +25,9 @@ import SubjectPeoplePage from '../pages/Subject/People/SubjectPeoplePage'
 import TeachedPage from '../pages/Subject/TeachedPage'
 import EnrolledPage from '../pages/Subject/EnrolledPage'
 import ProfilePage from '../pages/ProfilePage'
+import SubjectAttendancePage from '../pages/Subject/Attendance/SubjectAttendancePage'
+import NewAttendancePage from '../pages/Subject/Attendance/NewAttendancePage'
+import AttendanceDetailPage from '../pages/Subject/Attendance/AttendanceDetailPage'
 
 const Router = createBrowserRouter([
     {
@@ -51,6 +54,18 @@ const Router = createBrowserRouter([
                 path: 'class/:id',
                 element: <SubjectDetailPage />,
                 children: [
+                    {
+                        path: 'attendances',
+                        element: <SubjectAttendancePage />
+                    },
+                    {
+                        path: 'attendances/new',
+                        element: <NewAttendancePage />
+                    },
+                    {
+                        path: 'attendances/:attendance_id',
+                        element: <AttendanceDetailPage />
+                    },
                     {
                         path: 'materials',
                         element: <SubjectMaterialPage />

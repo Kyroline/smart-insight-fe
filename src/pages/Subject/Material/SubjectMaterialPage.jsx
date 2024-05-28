@@ -7,14 +7,19 @@ import { Link, useParams } from 'react-router-dom'
 import useSWR from 'swr'
 import axiosInstance from '../../../lib/axios'
 import MaterialRow from '../../../components/Material/MaterialRow'
+import Loading from '../../../components/Error/Loading'
+import NoItem from '../../../components/Error/NoItem'
 
 const SubjectMaterialPage = () => {
-    const {classData} = useContext(ClassContext)
+    const { classData } = useContext(ClassContext)
     const { id } = useParams()
 
     const navigate = useNavigate()
 
     const { data, error, isLoading } = useSWR(`v1/materials?subject=${id}`, url => axiosInstance.get(url).then(res => res.data))
+
+    if (isLoading)
+        return <Loading />
 
     return (
         <>
