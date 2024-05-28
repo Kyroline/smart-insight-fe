@@ -30,7 +30,7 @@ const Sidebar = ({ active }) => {
                     <span className='text-sm'>Enrolled</span>
                 </div>
             </Link>
-            <Link>
+            <Link to='/home/my-profile'>
                 <div className='h-8 flex flex-row items-center m-1 p-6 hover:bg-gray-200 cursor-pointer'>
                     <FaUser className='mr-8' color='#5f6368' size={'24'} />
                     <span className='text-sm'>Profile</span>

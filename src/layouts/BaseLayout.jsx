@@ -31,10 +31,6 @@ export default () => {
         if (apiKey)
             getUser()
 
-        // const eventSource = new EventSource(`http://localhost:3000/events`, {
-        //     he
-        // })
-
         return (() => {
             setUser(null)
         })
@@ -44,7 +40,7 @@ export default () => {
         <div className="flex flex-col w-screen h-screen bg-[#ebebeb] font-[Poppins]">
             <Navbar active={sidebarActive} onActiveChange={val => setSidebarActive(val)} />
             <Sidebar active={sidebarActive} />
-            <div className={`fixed transition-all top-[56px] p-4 overflow-auto h-[calc(100vh-56px)] ${sidebarActive ? 'md:w-[calc(100vw-320px)] md:translate-x-[320px]' : 'w-full'}`}>
+            <div className={`fixed transition-all top-[56px] p-4 overflow-auto h-[calc(100vh-56px)] w-full ${sidebarActive ? 'md:w-[calc(100vw-320px)] md:translate-x-[320px]' : ''}`}>
                 <Outlet />
             </div>
         </div>

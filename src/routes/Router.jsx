@@ -24,6 +24,7 @@ import AgendaPage from '../pages/Agenda/AgendaPage'
 import SubjectPeoplePage from '../pages/Subject/People/SubjectPeoplePage'
 import TeachedPage from '../pages/Subject/TeachedPage'
 import EnrolledPage from '../pages/Subject/EnrolledPage'
+import ProfilePage from '../pages/ProfilePage'
 
 const Router = createBrowserRouter([
     {
@@ -91,6 +92,10 @@ const Router = createBrowserRouter([
                         element: <SubjectPeoplePage />
                     }
                 ]
+            },
+            {
+                path: 'my-profile',
+                element: <ProfilePage />
             }
         ]
     },

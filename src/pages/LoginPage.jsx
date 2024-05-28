@@ -23,6 +23,7 @@ const LoginPage = () => {
             alert.success('Login succeess')
             sessionStorage.setItem('api_key', response.data.token)
             setUser(response.data.user)
+            console.log(response.data.user)
             navigate('/home')
         } catch (error) {
             alert.error('Email or password is incorrect.')
